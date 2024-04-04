@@ -1,11 +1,9 @@
 package edu.ucalgary.oop;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 
 public class DisasterVictimInterface {
-    static public void generateDisasterVicitim(){
+    static public DisasterVictim generateDisasterVicitim(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Entry date: ");
         String ENTRY_DATE = scanner.nextLine();
@@ -18,11 +16,11 @@ public class DisasterVictimInterface {
         victim.setLastName(lastName);
 
         System.out.print("Enter height in cm: ");
-        int height = scanner.nextLine();
+        int height = Integer.parseInt(scanner.nextLine());
         victim.setHeight(height);
 
         System.out.print("Enter weight in lb: ");
-        int weight = scanner.nextLine();
+        int weight = Integer.parseInt(scanner.nextLine());
         victim.setWeight(weight);
         
         System.out.print("Enter gender: ");
@@ -36,7 +34,7 @@ public class DisasterVictimInterface {
             victim.setDateOfBirth(dob_age);
         } else {
             System.out.print("Enter aprox age: ");
-            int dob_age = scanner.nextLine();
+            int dob_age = Integer.parseInt(scanner.nextLine());
             victim.setAproxAge(dob_age);
         }
         
@@ -44,7 +42,7 @@ public class DisasterVictimInterface {
         String comments = scanner.nextLine();
         victim.setComments(comments);
 
-        String input;
+        String input = "";
         while(input != "q"){
             System.out.print("Do you want to enter a medical record(c to continue or q to quit): ");
             input = scanner.nextLine();
@@ -64,9 +62,44 @@ public class DisasterVictimInterface {
             victim.addMedicalRecord(record);
         }
         
-        //Add family connections and personal belongings
+        input = "";
+        while(input != "q"){
+            System.out.print("Do you want to enter a family connection(c to continue or q to quit): ");
+            input = scanner.nextLine();
+            if (input.equals("q")){
+                break;
+            }
+            System.out.print("Enter first name of family member: ");
+            String f_name = scanner.nextLine();
+            System.out.print("Enter entry date of family member: ");
+            String eDate = scanner.nextLine();
+            System.out.print("Enter relation to the victim: ");
+            String relation = scanner.nextLine();
+
+            DisasterVictim family = new DisasterVictim(f_name, eDate);
+
+            FamilyRelation familyRelation = new FamilyRelation(victim, relation, family);
+            victim.addFamilyConnection(familyRelation);
+        }
         
+        input = "";
+        while(input != "q"){
+            System.out.print("Do you want to enter a personal belonging(c to continue or q to quit): ");
+            input = scanner.nextLine();
+            if (input.equals("q")){
+                break;
+            }
+            System.out.print("Enter type of belonging: ");
+            String type = scanner.nextLine();
+            System.out.print("Enter quantity of belonging: ");
+            int quantity = Integer.parseInt(scanner.nextLine());
+            Supply supply = new Supply(type, quantity);
+            victim.addPersonalBelonging(supply);
+        }
+
         scanner.close();
+        
+        return victim;
     }
         
 

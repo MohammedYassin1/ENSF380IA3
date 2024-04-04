@@ -19,6 +19,7 @@ public class DisasterVictim {
     private final String ENTRY_DATE;
     private ArrayList<Supply> personalBelongings;
     private String gender;
+    private ArrayList<DietaryRestriction> dietaryRestrictions;
     private static int counter = 0;
     private static final String REGEX = "\\d{4}-\\d{2}-\\d{2}";
 	private static final Pattern PATTERN = Pattern.compile(REGEX);
@@ -80,6 +81,10 @@ public class DisasterVictim {
 
     public String getGender(){ return this.gender;}
 
+    public ArrayList<DietaryRestriction> getDietaryRestrictions(){
+        return this.dietaryRestrictions;
+    }
+
     //Setters
     public void setFirstName(String firstName){ this.firstName = firstName;}
 
@@ -111,6 +116,10 @@ public class DisasterVictim {
 
     public void setWeight(int weight){ this.weight = weight;}
 
+    public void setDietaryRestriction(ArrayList<DietaryRestriction> dietaryRestriction){
+        this.dietaryRestrictions = dietaryRestriction;
+    }
+
     public void setMedicalRecords(ArrayList<MedicalRecord> medicalRecords){
         this.medicalRecords = medicalRecords;
     }
@@ -134,13 +143,36 @@ public class DisasterVictim {
 
     public void addFamilyConnection(FamilyRelation familyConnection) {
         this.familyConnections.add(familyConnection);
+        familyConnection.getPersonTwo().addFamilyConnection(familyConnection);
+        if(familyConnection.getRelationshipTo() == "sibling"){
+            for(FamilyRelation family : this.familyConnections){
+                if(family.getRelationshipTo() == "sibling"){
+                    FamilyRelation newFamily = new FamilyRelation(familyConnection.getPersonTwo(), "sibling", family.getPersonTwo());
+                    familyConnection.getPersonTwo().addFamilyConnection(newFamily);
+                    family.getPersonTwo().addFamilyConnection(newFamily);
+                }
+            }
+        }
     }
 
     public void removeFamilyConnection(FamilyRelation familyConnection) {
         this.familyConnections.remove(familyConnection);
+        familyConnection.getPersonTwo().removeFamilyConnection(familyConnection);
     }
 
     public void addMedicalRecord(MedicalRecord medicalRecord) {
         this.medicalRecords.add(medicalRecord);
+    }
+
+    public enum DietaryRestriction {
+        AVML,  
+        DBML, 
+        GFML, 
+        KSML,  
+        LSML,  
+        MOML,  
+        PFML,  
+        VGML, 
+        VJML
     }
 }

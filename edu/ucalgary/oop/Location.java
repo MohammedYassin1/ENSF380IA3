@@ -2,7 +2,7 @@ package edu.ucalgary.oop;
 
 import java.util.ArrayList;
 
-public class Location{
+public class Location implements addRemoveSupply{
     private String name;
     private String address;
     private ArrayList<DisasterVictim> occupants;
@@ -32,6 +32,7 @@ public class Location{
 
     public void addOccupant(DisasterVictim occupant){ this.occupants.add(occupant);}
     public void removeOccupant(DisasterVictim occupant){ this.occupants.remove(occupant);}
+    @Override
     public void addSupply(Supply supply){ 
         for (Supply s : this.supplies){
             if (s.getType().equals(supply.getType())){
@@ -41,6 +42,7 @@ public class Location{
         }
         this.supplies.add(supply);
     }
+    @Override
     public void removeSupply(Supply supply){ this.supplies.remove(supply);}
     
     public void decrementSupply(String supply, int amount ){ 

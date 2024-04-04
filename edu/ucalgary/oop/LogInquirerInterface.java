@@ -1,7 +1,5 @@
 package edu.ucalgary.oop;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class LogInquirerInterface {
@@ -75,6 +73,7 @@ public class LogInquirerInterface {
                 return occupants.get(Integer.parseInt(input));
             }
         }
+        return null;
         
     }
     
