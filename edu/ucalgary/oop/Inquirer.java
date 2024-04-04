@@ -19,4 +19,5 @@ public class Inquirer {
     public String getLastName() { return this.LAST_NAME;}
     public String getInfo() { return this.INFO;}
     public String getServicesPhoneNum() { return this.SERVICES_PHONE;}
-    }
+
+}

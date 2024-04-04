@@ -7,6 +7,10 @@ import java.util.regex.*;
 public class DisasterVictim {
     private String firstName;
     private String lastName;
+    private Location location;
+    private int height;
+    private int weight;
+    private int aproxAge;
     private String dateOfBirth;
     private String comments;
     private final int ASSIGNED_SOCIAL_ID;
@@ -46,7 +50,15 @@ public class DisasterVictim {
 
     public String getLastName(){ return this.lastName;}
 
+    public Location getLocation(){ return this.location;}
+
     public String getDateOfBirth(){ return this.dateOfBirth;}
+
+    public int getAproxAge(){ return this.aproxAge;}
+
+    public int getHeight(){ return this.height;}
+
+    public int getWeight(){ return this.weight;}
 
     public String getComments(){ return this.comments;}
 
@@ -73,6 +85,8 @@ public class DisasterVictim {
 
     public void setLastName(String lastName){ this.lastName = lastName;}
 
+    public void setLocation(Location location){ this.location = location;}
+
     public void setDateOfBirth(String dateOfBirth) throws IllegalArgumentException{
         Matcher match = PATTERN.matcher(dateOfBirth);
         boolean valid_date = match.find();
@@ -81,26 +95,37 @@ public class DisasterVictim {
             throw new IllegalArgumentException("Invalid format for date. Please use YYYY-MM-DD.");
         }
         this.dateOfBirth = dateOfBirth;
+        this.aproxAge = 0;
+    }
+
+    public void setAproxAge(int aproxAge){ 
+        this.aproxAge = aproxAge;
+        this.dateOfBirth = null;
     }
 
     public void setComments(String comments){ this.comments = comments;}
 
     public void setGender(String gender){ this.gender = gender;}
 
-    public void setMedicalRecords(MedicalRecord[] medicalRecords){
-        this.medicalRecords = new ArrayList<>(Arrays.asList(medicalRecords));
+    public void setHeight(int height){ this.height = height;}
+
+    public void setWeight(int weight){ this.weight = weight;}
+
+    public void setMedicalRecords(ArrayList<MedicalRecord> medicalRecords){
+        this.medicalRecords = medicalRecords;
     }
 
-    public void setFamilyConnections(FamilyRelation[] familyConnections){
-        this.familyConnections = new ArrayList<>(Arrays.asList(familyConnections));
+    public void setFamilyConnections(ArrayList<FamilyRelation> familyConnections){
+        this.familyConnections = familyConnections;
     }
 
-    public void setPersonalBelongings(Supply[] personalBelongings){
-        this.personalBelongings = new ArrayList<>(Arrays.asList(personalBelongings));
+    public void setPersonalBelongings(ArrayList<Supply> personalBelongings){
+        this.personalBelongings = personalBelongings;
     }
     
     public void addPersonalBelonging(Supply supply) {
         this.personalBelongings.add(supply);
+        this.location.decrementSupply(supply.getType(), supply.getQuantity());  
     }
 
     public void removePersonalBelonging(Supply supply) {

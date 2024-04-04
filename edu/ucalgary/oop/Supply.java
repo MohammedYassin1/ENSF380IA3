@@ -16,6 +16,11 @@ public class Supply{
     /*getters*/
 
     public String getType(){ return this.type;}
-    public int getQuantity(){ return this.quantity;}    
+    public int getQuantity(){ return this.quantity;} 
+    
+    /*functions*/
+
+    public void incrementQuantity(int quantity){ this.quantity += quantity;}
+    public void decrementQuantity(int quantity){ this.quantity -= quantity;}
 }
 

@@ -32,6 +32,22 @@ public class Location{
 
     public void addOccupant(DisasterVictim occupant){ this.occupants.add(occupant);}
     public void removeOccupant(DisasterVictim occupant){ this.occupants.remove(occupant);}
-    public void addSupply(Supply supply){ this.supplies.add(supply);}
+    public void addSupply(Supply supply){ 
+        for (Supply s : this.supplies){
+            if (s.getType().equals(supply.getType())){
+                s.setQuantity(s.getQuantity() + supply.getQuantity());
+                return;
+            }
+        }
+        this.supplies.add(supply);
+    }
     public void removeSupply(Supply supply){ this.supplies.remove(supply);}
+    
+    public void decrementSupply(String supply, int amount ){ 
+        for (Supply s : this.supplies){
+            if (s.getType().equals(supply)){
+                s.setQuantity(s.getQuantity() - amount);
+            }
+        }
+    }
 }
