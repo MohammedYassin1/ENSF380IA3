@@ -19,6 +19,6 @@ public class LogInquirer {
     public void setInquirer(Inquirer inquirer) { this.inquirer = inquirer;}
 
     /*functions*/
-    public void addlog(ReliefService service){this.log.add(service);}
+    public void addLog(ReliefService service){this.log.add(service);}
     
 }

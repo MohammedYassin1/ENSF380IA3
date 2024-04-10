@@ -3,13 +3,15 @@ import java.util.Scanner;
 
 
 public class DisasterVictimInterface {
-    static public DisasterVictim generateDisasterVicitim(){
+    static public DisasterVictim generateDisasterVictim(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Entry date: ");
         String ENTRY_DATE = scanner.nextLine();
         System.out.print("Enter first name: ");
         String firstName = scanner.nextLine();
         DisasterVictim victim = new DisasterVictim(firstName, ENTRY_DATE);
+        Location locn = new Location("location", "address");
+        victim.setLocation(locn);
 
         System.out.print("Enter last name: ");
         String lastName = scanner.nextLine();
@@ -101,7 +103,11 @@ public class DisasterVictimInterface {
         
         return victim;
     }
+
+    public static void main(String[] args) {
+        DisasterVictim victim = generateDisasterVictim();
         
+    }
 
     
 }

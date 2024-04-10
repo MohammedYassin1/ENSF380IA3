@@ -1,6 +1,6 @@
 package edu.ucalgary.oop;
 
-public interface addRemoveSupply {
+public interface AddRemoveSupply {
     void addSupply(Supply supply);
     void removeSupply(Supply supply);
 }

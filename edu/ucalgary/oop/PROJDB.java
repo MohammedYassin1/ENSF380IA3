@@ -14,35 +14,56 @@ public class PROJDB {
         }
     }
 
-    public void insertInquirer(String firstName, String lastName, String phoneNumber) {
-        
-
+    public void insertInquirer(Inquirer inquirer) {
+        String firstName = inquirer.getFirstName();
+        String lastName = inquirer.getLastName();
+        String phoneNumber = inquirer.getServicesPhoneNum();
+        int id = -1;
+    
         try {
-            String sql = "INSERT INTO INQUIRER (firstName, lastName, phoneNumber) VALUES (?,?,?)";
+            String sql = "INSERT INTO INQUIRER (firstName, lastName, phoneNumber) VALUES (?,?,?) RETURNING id";
             PreparedStatement pstmt = dbConnection.prepareStatement(sql);
             pstmt.setString(1, firstName);
             pstmt.setString(2, lastName);
             pstmt.setString(3, phoneNumber);
-            pstmt.executeUpdate();
+            
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
             pstmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    
+        inquirer.setId(id);
     }
 
-    public void insertInquiryLog(int inquirer, Date callDate, String details) {
+    public void insertInquiryLog(LogInquirer logInquirer) {
         String sql = "INSERT INTO INQUIRY_LOG (inquirer, callDate, details) VALUES (?,?,?)";
-
-        try{
-            PreparedStatement pstmt = dbConnection.prepareStatement(sql);
-            pstmt.setInt(1, inquirer);
-            pstmt.setDate(2, callDate);
-            pstmt.setString(3, details);
-            pstmt.executeUpdate();
-            pstmt.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (logInquirer.getInquirer().getId() == -1) {
+            insertInquirer(logInquirer.getInquirer());
         }
+        int inquirer = logInquirer.getInquirer().getId();
+        for (ReliefService reliefService : logInquirer.getLog()) {
+            if (reliefService.getLogged() == false) {
+                String callDate = reliefService.getDateOfInquiry();
+                String details = reliefService.getInfoProvided();
+                reliefService.setLogged(true);
+                try{
+                    PreparedStatement pstmt = dbConnection.prepareStatement(sql);
+                    pstmt.setInt(1, inquirer);
+                    pstmt.setDate(2, callDate);
+                    pstmt.setString(3, details);
+                    pstmt.executeUpdate();
+                    pstmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            
+        }
+        
     }
 
     public void readInquirers() {

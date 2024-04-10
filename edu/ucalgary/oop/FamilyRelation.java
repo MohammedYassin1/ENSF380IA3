@@ -5,6 +5,12 @@ public class FamilyRelation {
     private String relationshipTo;
     private DisasterVictim personTwo;
 
+    public FamilyRelation() {
+        this.personOne = null;
+        this.relationshipTo = null;
+        this.personTwo = null;
+    }
+
     public FamilyRelation(DisasterVictim personOne, String relationshipTo, DisasterVictim personTwo){
         this.personOne = personOne;
         this.relationshipTo = relationshipTo;

@@ -3,6 +3,10 @@ public class Supply{
     private String type;
     private int quantity;
 
+    public Supply(){
+        this.type = "";
+        this.quantity = 0;
+    }
     public Supply(String type, int quantity){
         this.type = type;
         this.quantity = quantity;
@@ -20,7 +24,7 @@ public class Supply{
     
     /*functions*/
 
-    public void incrementQuantity(int quantity){ this.quantity += quantity;}
-    public void decrementQuantity(int quantity){ this.quantity -= quantity;}
+    public void increment(int quantity){ this.quantity += quantity;}
+    public void decrement(int quantity){ this.quantity -= quantity;}
 }
 

@@ -11,6 +11,7 @@ public class ReliefService{
     private Location lastKnownLocation;
     private static final String REGEX = "\\d{4}-\\d{2}-\\d{2}";
 	private static final Pattern PATTERN = Pattern.compile(REGEX);
+    private Boolean logged;
 
     public ReliefService(Inquirer inquirer, DisasterVictim missingPerson,
             String dateOfInquiry, String infoProvided, Location lastKnownLocation){
@@ -36,6 +37,7 @@ public class ReliefService{
     }
     public void setInfoProvided(String infoProvided){ this.infoProvided = infoProvided;}
     public void setLastKnownLocation(Location lastKnowLocation){ this.lastKnownLocation = lastKnowLocation;}
+    public void setLogged(Boolean logged){ this.logged = logged;}
 
     /*getters*/
 
@@ -51,6 +53,7 @@ public class ReliefService{
         ", Info Provided: " + this.getInfoProvided() +
         ", Last Known Location: " + this.getLastKnownLocation().getName();
     }
+    public Boolean getLogged(){ return this.logged;}
 }
 
 

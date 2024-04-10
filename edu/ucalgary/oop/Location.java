@@ -1,18 +1,21 @@
 package edu.ucalgary.oop;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Location implements addRemoveSupply{
+public class Location implements AddRemoveSupply{
     private String name;
     private String address;
     private ArrayList<DisasterVictim> occupants;
     private ArrayList<Supply> supplies;
+    private ArrayList<String> genders;
 
     public Location(String name, String address){
         this.name = name;
         this.address = address;
         this.occupants = new ArrayList<DisasterVictim>();
         this.supplies = new ArrayList<Supply>();
+        this.genders = PopulateGenderOptions.generateGenderOptions("GenderOptions.txt");
     }
     /*setters*/
 
@@ -25,6 +28,7 @@ public class Location implements addRemoveSupply{
 
     public String getName(){ return this.name;}
     public String getAddress(){ return this.address;}
+    public ArrayList<String> getGenders(){ return this.genders;} 
     public ArrayList<DisasterVictim> getOccupants(){ return this.occupants;}
     public ArrayList<Supply> getSupplies(){ return this.supplies;}
     
