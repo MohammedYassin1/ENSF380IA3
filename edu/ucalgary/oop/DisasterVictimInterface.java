@@ -103,11 +103,5 @@ public class DisasterVictimInterface {
         
         return victim;
     }
-
-    public static void main(String[] args) {
-        DisasterVictim victim = generateDisasterVictim();
-        
-    }
-
     
 }
