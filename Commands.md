@@ -6,3 +6,5 @@ javac -cp .;junit-4.13.2.jar;hamcrest-core-1.3.jar edu\ucalgary\oop\DisasterVict
 
 ### Running Commands
 java -cp .;junit-4.13.2.jar;hamcrest-core-1.3.jar org.junit.runner.JUnitCore edu.ucalgary.oop.DisasterVictimTest edu.ucalgary.oop.FamilyRelationTest edu.ucalgary.oop.InquirerTest edu.ucalgary.oop.LocationTest edu.ucalgary.oop.MedicalRecordTest edu.ucalgary.oop.ReliefServiceTest edu.ucalgary.oop.SupplyTest
+
+.;postgresql-42.7.3.jar

@@ -11,6 +11,17 @@
  You may optionally create additional tables in the ensf380project database with demonstration 
  data, provided that you provide the information in a valid SQL file which TAs can import and
  clearly include this information in your instructions.
+
+ DROP DATABASE IF EXISTS ensf380project;
+CREATE DATABASE ensf380project;
+\c ensf380project
+\i 'C:/Users/moham/Downloads/sc/ENSF380/ENSF380IA3/edu/ucalgary/oop/project.sql'
+ALTER DATABASE ensf380project OWNER TO oop;
+GRANT ALL PRIVILEGES ON DATABASE ensf380project TO oop;
+GRANT ALL PRIVILEGES ON TABLE inquirer TO oop;
+GRANT ALL PRIVILEGES ON TABLE inquiry_log TO oop;
+GRANT USAGE, SELECT ON SEQUENCE inquirer_id_seq TO oop;
+GRANT USAGE, SELECT ON SEQUENCE inquiry_log_id_seq TO oop;
  */
 
 CREATE TABLE INQUIRER (
@@ -27,6 +38,8 @@ INSERT INTO INQUIRER (id, firstName, lastName, phoneNumber) VALUES
 INSERT INTO INQUIRER (id, firstName, phoneNumber) VALUES
 (5, 'Saartje', '123-456-7234'),
 (6, 'Urjoshi', '456-123-4281');
+
+SELECT setval('inquirer_id_seq', (SELECT MAX(id) FROM INQUIRER));
 
 CREATE TABLE INQUIRY_LOG (
     id SERIAL PRIMARY KEY,
@@ -47,3 +60,4 @@ INSERT INTO INQUIRY_LOG (id, inquirer, callDate, details) VALUES
 (8, 3, '2024-03-03', 'Melinda'),
 (9, 6, '2024-03-04', 'Julius');
 
+SELECT setval('inquiry_log_id_seq', (SELECT MAX(id) FROM INQUIRY_LOG));

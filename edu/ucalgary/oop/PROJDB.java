@@ -18,7 +18,7 @@ public class PROJDB {
         
 
         try {
-            String sql = "INSERT INTO INQUIRER (id, firstName, lastName, phoneNumber) VALUES (DEFAULT, ?, ?, ?)";
+            String sql = "INSERT INTO INQUIRER (firstName, lastName, phoneNumber) VALUES (?,?,?)";
             PreparedStatement pstmt = dbConnection.prepareStatement(sql);
             pstmt.setString(1, firstName);
             pstmt.setString(2, lastName);
@@ -31,15 +31,14 @@ public class PROJDB {
     }
 
     public void insertInquiryLog(int inquirer, Date callDate, String details) {
-        String sql = "INSERT INTO INQUIRY_LOG (inquirer, callDate, details) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO INQUIRY_LOG (inquirer, callDate, details) VALUES (?,?,?)";
 
         try{
             PreparedStatement pstmt = dbConnection.prepareStatement(sql);
             pstmt.setInt(1, inquirer);
             pstmt.setDate(2, callDate);
             pstmt.setString(3, details);
-            int rowCount = pstmt.executeUpdate();
-            System.out.println("Rows affected: " + rowCount);
+            pstmt.executeUpdate();
             pstmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
