@@ -57,7 +57,7 @@ public class LogInquirerTest {
     }
 
     @Test
-    public void testSetContactor() {
+    public void testSetInquirer() {
         Inquirer newInquirer = new Inquirer("Jane", "Doe", "0987654321", "Looking for friend");
         logInquirer.setInquirer(newInquirer);
         assertEquals("Inquirer should match the one set using setInquirer method", newInquirer, logInquirer.getInquirer());

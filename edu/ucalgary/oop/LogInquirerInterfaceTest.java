@@ -3,6 +3,7 @@ package edu.ucalgary.oop;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
+import org.junit.Before;
 
 public class LogInquirerInterfaceTest {
     private ArrayList<DisasterVictim> disasterVictims;
@@ -14,7 +15,9 @@ public class LogInquirerInterfaceTest {
 
     @Before
     public void setUp() {
-        disasterVictim = new DisasterVictim("Johnny Depp", "2024-02-02");
+        disasterVictim = new DisasterVictim("Johnny", "2024-02-02");
+        disasterVictim.setLocation(location);
+        disasterVictim.setLastName("Doe");
 
         disasterVictims = new ArrayList<DisasterVictim>();
         disasterVictims.add(disasterVictim);
@@ -22,6 +25,7 @@ public class LogInquirerInterfaceTest {
 
         expectedDisasterVictims = new ArrayList<DisasterVictim>();
         expectedDisasterVictims.add(disasterVictim); 
+        location.setOccupants(expectedDisasterVictims);
     }
     @Test
     public void testGenerateLogInquirer() {
@@ -41,6 +45,11 @@ public class LogInquirerInterfaceTest {
         assertNotNull("searchDisasterVictim should return instance of DisasterVictim", disasterVictims1);
     }
     
+    @Test
+    public void testPartialSearchDisasterVictim() {
+        DisasterVictim disasterVictims1 = LogInquirerInterface.searchDisasterVictim(location);
+        assertNotNull("searchDisasterVictim should return instance of DisasterVictim", disasterVictims1);
+    }
 }
 
 

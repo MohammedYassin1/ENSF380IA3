@@ -8,6 +8,9 @@ public class LogInquirer {
     public LogInquirer(ArrayList<ReliefService> log ,Inquirer inquirer){
         this.log = log;
         this.inquirer = inquirer;
+        
+        PROJDB db = new PROJDB();
+        db.insertInquiryLog(this);
     }
 
     /*getters*/
@@ -19,6 +22,10 @@ public class LogInquirer {
     public void setInquirer(Inquirer inquirer) { this.inquirer = inquirer;}
 
     /*functions*/
-    public void addLog(ReliefService service){this.log.add(service);}
+    public void addLog(ReliefService service){
+        this.log.add(service);
+        PROJDB db = new PROJDB();
+        db.insertInquiryLog(this);
+    }
     
 }

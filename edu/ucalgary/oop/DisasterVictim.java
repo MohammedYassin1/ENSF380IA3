@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.*;
 
-public class DisasterVictim {
+public class DisasterVictim implements AddRemoveSupply{
     private String firstName;
     private String lastName;
     private Location location;
@@ -169,17 +169,24 @@ public class DisasterVictim {
         this.personalBelongings = personalBelongings;
     }
     
-    public void addPersonalBelonging(Supply supply) {
+    public void addSupply(Supply supply) {
         this.personalBelongings.add(supply);
         this.location.decrementSupply(supply.getType(), supply.getQuantity());  
     }
 
-    public void removePersonalBelonging(Supply supply) {
+    public void removeSupply(Supply supply) {
         this.personalBelongings.remove(supply);
     }
 
+    
     public void addFamilyConnection(FamilyRelation familyConnection) {
-        //person one is always personOne
+        //this is always personOne
+        for (FamilyRelation family : this.familyConnections) {
+            if (family.getPersonTwo() == familyConnection.getPersonTwo()) {
+                //2 people can't have multiple relationships with each other
+                throw new IllegalArgumentException("familyConnection already exists");
+            }
+        }
 
         this.familyConnections.add(familyConnection);
 
@@ -198,9 +205,10 @@ public class DisasterVictim {
                     FamilyRelation newRelation1 = new FamilyRelation(this, "sibling", family2.get(i).getPersonTwo());
                     FamilyRelation newRelation2 = new FamilyRelation(family2.get(i).getPersonTwo(), "sibling", this);
                     ArrayList<FamilyRelation> family3 = family2.get(i).getPersonTwo().getFamilyConnections();
-                    family1.add(newRelation1);
+                    ArrayList<FamilyRelation> tempFamily1 = this.getFamilyConnections();
+                    tempFamily1.add(newRelation1);
                     family3.add(newRelation2);
-                    this.setFamilyConnections(family1);
+                    this.setFamilyConnections(tempFamily1);
                     family2.get(i).getPersonTwo().setFamilyConnections(family3);
                 }
             }
@@ -209,9 +217,10 @@ public class DisasterVictim {
                     FamilyRelation newRelation1 = new FamilyRelation(familyConnection.getPersonTwo(), "sibling", family1.get(i).getPersonTwo());
                     FamilyRelation newRelation2 = new FamilyRelation(family1.get(i).getPersonTwo(), "sibling", familyConnection.getPersonTwo());
                     ArrayList<FamilyRelation> family3 = family1.get(i).getPersonTwo().getFamilyConnections();
-                    family1.add(newRelation1);
+                    ArrayList<FamilyRelation> tempFamily2 = familyConnection.getPersonTwo().getFamilyConnections();
+                    tempFamily2.add(newRelation1);
                     family3.add(newRelation2);
-                    familyConnection.getPersonTwo().setFamilyConnections(family1);
+                    familyConnection.getPersonTwo().setFamilyConnections(tempFamily2);
                     family1.get(i).getPersonTwo().setFamilyConnections(family3);
                 }
             }
@@ -223,8 +232,10 @@ public class DisasterVictim {
         ArrayList<FamilyRelation> family = familyConnection.getPersonTwo().getFamilyConnections();
         for(int i = 0; i < family.size(); i++){
             if(family.get(i).getPersonTwo() == this){
+                ArrayList<FamilyRelation> tempFamily = family;
                 family.remove(i);
                 familyConnection.getPersonTwo().setFamilyConnections(family);
+                return;
             }
         }
     }
@@ -233,15 +244,5 @@ public class DisasterVictim {
         this.medicalRecords.add(medicalRecord);
     }
 
-    public enum DietaryRestriction {
-        AVML,  
-        DBML, 
-        GFML, 
-        KSML,  
-        LSML,  
-        MOML,  
-        PFML,  
-        VGML, 
-        VJML
-    }
+    
 }

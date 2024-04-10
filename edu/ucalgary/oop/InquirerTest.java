@@ -39,6 +39,19 @@ public class InquirerTest {
         Inquirer newInquirer = new Inquirer(newFirstName, lastName, servicePhoneNumber, message);
         assertEquals("getFirstName() should return inquirer's first name", newFirstName, newInquirer.getFirstName());
     }
+
+    @Test
+    public void testSeatAndGetId() {
+        String firstName = "john";
+        lastName = "Doe";
+        servicePhoneNumber = "403-323-7321";
+        message = "Looking for my mother, Jane Doe.";
+        int id = 1234;
+        Inquirer newInquirer = new Inquirer(firstName, lastName, servicePhoneNumber, message);
+        newInquirer.setId(id);
+
+        assertEquals("getFirstName() should return inquirer's first name", id, newInquirer.getId());
+    }
 	
     @Test
     public void testGetLastName() {

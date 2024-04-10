@@ -80,6 +80,13 @@ public class ReliefServiceTest {
     }
 
     @Test
+    public void testSetAndGetLogged() {
+        Boolean b = true;
+        reliefService.setLogged(b);
+        assertEquals("The info provided should match the one set in the setup", b, reliefService.getLogged());
+    }
+
+    @Test
     public void testGetLastKnownLocation() {
         assertEquals("The last known location should match the one set in the setup", lastKnownLocation, reliefService.getLastKnownLocation());
     }

@@ -96,7 +96,7 @@ public class DisasterVictimInterface {
             System.out.print("Enter quantity of belonging: ");
             int quantity = Integer.parseInt(scanner.nextLine());
             Supply supply = new Supply(type, quantity);
-            victim.addPersonalBelonging(supply);
+            victim.addSupply(supply);
         }
 
         scanner.close();

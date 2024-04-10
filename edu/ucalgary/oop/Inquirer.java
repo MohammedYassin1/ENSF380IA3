@@ -12,6 +12,9 @@ public class Inquirer {
         this.LAST_NAME = LAST_NAME;
         this.INFO = INFO;
         this.SERVICES_PHONE = SERVICES_PHONE;
+        this.id = -1;
+        PROJDB db = new PROJDB();
+        db.insertInquirer(this);
     }
     
     /*getters*/

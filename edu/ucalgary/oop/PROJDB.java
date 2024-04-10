@@ -1,10 +1,15 @@
 package edu.ucalgary.oop;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class PROJDB {
     private Connection dbConnection;
     private ResultSet rs;
+
+    public PROJDB() {
+        createConnection();
+    }
 
     public void createConnection() {
         try {
@@ -31,6 +36,7 @@ public class PROJDB {
             if (rs.next()) {
                 id = rs.getInt(1);
             }
+            
             pstmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,7 +53,7 @@ public class PROJDB {
         int inquirer = logInquirer.getInquirer().getId();
         for (ReliefService reliefService : logInquirer.getLog()) {
             if (reliefService.getLogged() == false) {
-                String callDate = reliefService.getDateOfInquiry();
+                java.sql.Date callDate = java.sql.Date.valueOf(reliefService.getDateOfInquiry());
                 String details = reliefService.getInfoProvided();
                 reliefService.setLogged(true);
                 try{
@@ -108,23 +114,5 @@ public class PROJDB {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-    public static void main(String[] args) {
-        PROJDB db = new PROJDB();
-
-        // Establish a database connection
-        db.createConnection();
-
-        // Test the insertInquirer method
-        db.insertInquirer("John", "Doe", "123-456-7890");
-
-        // Test the insertInquiryLog method
-        db.insertInquiryLog(1, java.sql.Date.valueOf("2022-12-01"), "Test details");
-
-        // Test the readInquirers method
-        db.readInquirers();
-
-        // Test the readInquiryLog method
-        db.readInquiryLog();
     }
 }

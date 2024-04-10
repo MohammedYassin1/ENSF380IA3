@@ -11,7 +11,7 @@ public class ReliefService{
     private Location lastKnownLocation;
     private static final String REGEX = "\\d{4}-\\d{2}-\\d{2}";
 	private static final Pattern PATTERN = Pattern.compile(REGEX);
-    private Boolean logged;
+    private Boolean logged = false;
 
     public ReliefService(Inquirer inquirer, DisasterVictim missingPerson,
             String dateOfInquiry, String infoProvided, Location lastKnownLocation){

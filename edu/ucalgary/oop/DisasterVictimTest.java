@@ -12,13 +12,10 @@ import java.util.LinkedList;
 
 public class DisasterVictimTest {
     private DisasterVictim victim;
-    private List<Supply> suppliesToSet; 
-    private List<FamilyRelation> familyRelations; 
     private String expectedFirstName;
     private String EXPECTED_ENTRY_DATE;
     private String validDate;
-    private String invalidDate;
-    private String expectedGender; 
+    private String invalidDate; 
     private String invalidGender;
     private String expectedComments;
     DisasterVictim victim1;
@@ -31,24 +28,19 @@ public class DisasterVictimTest {
         EXPECTED_ENTRY_DATE = "2024-02-02";
         validDate = "2024-03-30";
         invalidDate = "2/2/2024";
-        expectedGender = "female"; 
         invalidGender = "fem";
         expectedComments = "Dosen't need any medical attention and only speaks arabic";
         victim = new DisasterVictim(expectedFirstName, EXPECTED_ENTRY_DATE);
-        suppliesToSet = new ArrayList<>();
-        suppliesToSet.add(new Supply("Coat", 8));
-        suppliesToSet.add(new Supply("Ration", 7));
-        
         victim1 = new DisasterVictim("Molly", "2024-02-20");
         victim2 = new DisasterVictim("Hans", "2024-01-10");
         victim3 = new DisasterVictim("Kash", "2024-01-21");
     }    	
-/*     
+    
     @Test
     public void testImplementation() {
         assertTrue("DisasterVictim should implement AddRemoveSupply", victim instanceof AddRemoveSupply);
     }
-*/
+
     @Test
     public void testConstructorWithValidEntryDate() {
         String expectedValidEntryDate = "2024-05-10";
@@ -96,14 +88,16 @@ public class DisasterVictimTest {
         victim.setComments(expectedComments);
         assertEquals("setComments and getComments should update and give comments", expectedComments, victim.getComments());
     }
-/* 
+
     @Test
     public void testSetAndGetDietaryRestriction() {
-        DietaryRestriction expectedRestriction = DietaryRestriction.AVML;           
-        victim.setDietaryRestriction(expectedRestriction);
-        assertEquals("setDietaryRestriction and getDietaryRestriction should update and give cietaryRestriction", expectedRestriction, victim.getDietaryRestriction());
+        DietaryRestriction expectedRestriction = DietaryRestriction.AVML;
+        ArrayList<DietaryRestriction> restrictions = new ArrayList<DietaryRestriction>();
+        restrictions.add(expectedRestriction);           
+        victim.setDietaryRestriction(restrictions);
+        assertEquals("setDietaryRestriction and getDietaryRestriction should update and give cietaryRestriction", expectedRestriction, victim.getDietaryRestriction().get(0));
     }
-*/    
+  
     @Test
     public void testGetAssignedSocialID() {
         DisasterVictim previousVictim = new DisasterVictim();
@@ -201,27 +195,24 @@ public class DisasterVictimTest {
     }
 
     
-/*     
+   
     @Test(expected = IllegalArgumentException.class)
     public void testaddFamilyConnectionDuplicate() {
-        DisasterVictim victim1 = new DisasterVictim("James", "2024-01-11");
-        DisasterVictim victim2 = new DisasterVictim("Carl", "2024-02-12");
-        FamilyRelation relation = new FamilyRelation(victim2, "sibling", victim1);
-        FamilyRelation relation2 = new FamilyRelation(victim1, "sibling", victim2);
-        victim2.addFamilyConnection(relation);
-        victim2.addFamilyConnection(relation2);
+        DisasterVictim vic1 = new DisasterVictim("James", "2024-01-11");
+        DisasterVictim vic2 = new DisasterVictim("Carl", "2024-02-12");
+        FamilyRelation rela = new FamilyRelation(vic1, "sibling", vic2);
+        FamilyRelation rela2 = new FamilyRelation(vic1, "sibling", vic2);
+        victim2.addFamilyConnection(rela);
+        victim2.addFamilyConnection(rela2);
     }
-*/    
+ 
 
     @Test
     public void testRemoveFamilyConnection() {
         DisasterVictim victim1 = new DisasterVictim("Jane", "2024-01-20");
+        DisasterVictim victim = new DisasterVictim("Max", "2024-01-23");
         FamilyRelation relation1 = new FamilyRelation(victim, "sibling", victim1);
         
-        FamilyRelation expectedRelation;
-        victim.addFamilyConnection(relation1);
-
-        DisasterVictim victim = new DisasterVictim("Max", "2024-01-23");
         victim.addFamilyConnection(relation1);
         victim.removeFamilyConnection(relation1);
 
@@ -260,7 +251,7 @@ public class DisasterVictimTest {
     }
 
     @Test
-    public void testAddPersonalBelonging() {
+    public void testAddSupply() {
         DisasterVictim victim1 = new DisasterVictim("Jane", "2024-01-20");
         int totalAmount = 25;
         int amount = 5;
@@ -271,7 +262,7 @@ public class DisasterVictimTest {
 
         location.addSupply(newSupply2);
         victim1.setLocation(location);
-        victim1.addPersonalBelonging(newSupply);
+        victim1.addSupply(newSupply);
         ArrayList<Supply> testSupplies = victim1.getPersonalBelongings();
         int expectedAmount = totalAmount - amount;
         boolean correct = false;
@@ -283,20 +274,20 @@ public class DisasterVictimTest {
             }
         }
  
-        assertEquals("addPersonalBelonging should add the supply to personal belongings", newSupply, testSupplies.get(0));
-        assertEquals("addPersonalBelonging should decrement amount of supply" + 
+        assertEquals("addSupply should add the supply to personal belongings", newSupply, testSupplies.get(0));
+        assertEquals("addSupply should decrement amount of supply" + 
         " in DisasterVictim location by amount set for personalBelonging", expectedAmount, actualAmount);
     }
 
     @Test
-    public void testRemovePersonalBelonging() {
+    public void testRemoveSupply() {
         Supply expectedSupply = new Supply("Tents", 5); 
         Location location = new Location("shelter", "12 st 12 ave NE");
         victim.setLocation(location);
-        victim.addPersonalBelonging(expectedSupply); 
+        victim.addSupply(expectedSupply); 
         
 
-        victim.removePersonalBelonging(expectedSupply);
+        victim.removeSupply(expectedSupply);
         ArrayList<Supply> testSupplies = victim.getPersonalBelongings();
         boolean correct = true;
 
@@ -306,7 +297,7 @@ public class DisasterVictimTest {
                 correct = false;
             }
         }
-        assertTrue("removePersonalBelonging should remove the supply from personalBelonging", correct);
+        assertTrue("removeSupply should remove the supply from personalBelonging", correct);
     }
 
     @Test
