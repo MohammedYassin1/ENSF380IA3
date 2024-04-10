@@ -115,13 +115,5 @@ public class LogInquirerInterface {
         }
         return null;
         
-    }
-    public static void main(String[] args) {
-        Location location = new Location("Shelter", "12 st 12 ave NE");
-        DisasterVictim disasterVictim = new DisasterVictim("Johnny", "2024-02-02");
-        disasterVictim.setLocation(location);
-        location.addOccupant(disasterVictim);
-        LogInquirer logInquirer = generateLogInquirer(location);
-    }
-    
+    } 
 }

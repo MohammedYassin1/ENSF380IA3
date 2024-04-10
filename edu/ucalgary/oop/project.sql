@@ -11,18 +11,24 @@
  You may optionally create additional tables in the ensf380project database with demonstration 
  data, provided that you provide the information in a valid SQL file which TAs can import and
  clearly include this information in your instructions.
+*/
 
- DROP DATABASE IF EXISTS ensf380project;
+/*
+    -- Commands to create the database and tables --
+Copy and paste the following commands in the sql shell terminal 
+to create the database and tables.
+
+DROP DATABASE IF EXISTS ensf380project;
 CREATE DATABASE ensf380project;
 \c ensf380project
-\i 'C:/Users/moham/Downloads/sc/ENSF380/ENSF380IA3/edu/ucalgary/oop/project.sql'
+\i 'path_to_file\project.sql'
 ALTER DATABASE ensf380project OWNER TO oop;
 GRANT ALL PRIVILEGES ON DATABASE ensf380project TO oop;
 GRANT ALL PRIVILEGES ON TABLE inquirer TO oop;
 GRANT ALL PRIVILEGES ON TABLE inquiry_log TO oop;
 GRANT USAGE, SELECT ON SEQUENCE inquirer_id_seq TO oop;
 GRANT USAGE, SELECT ON SEQUENCE inquiry_log_id_seq TO oop;
- */
+*/
 
 CREATE TABLE INQUIRER (
     id SERIAL PRIMARY KEY,
